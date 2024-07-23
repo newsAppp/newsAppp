@@ -1,4 +1,5 @@
 // src/app/api/news/route.js
+export const dynamic = "force-dynamic"
 export async function GET(request) {
     const { searchParams } = new URL(request.url);
     const query = searchParams.get('query') || '';
