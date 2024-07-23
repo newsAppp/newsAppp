@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/newsappp.github.io/static/css/main.56e4b115.css",
+    "main.js": "/newsappp.github.io/static/js/main.509d80f0.js",
+    "static/js/453.8ab44547.chunk.js": "/newsappp.github.io/static/js/453.8ab44547.chunk.js",
+    "index.html": "/newsappp.github.io/index.html",
+    "main.56e4b115.css.map": "/newsappp.github.io/static/css/main.56e4b115.css.map",
+    "main.509d80f0.js.map": "/newsappp.github.io/static/js/main.509d80f0.js.map",
+    "453.8ab44547.chunk.js.map": "/newsappp.github.io/static/js/453.8ab44547.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.56e4b115.css",
+    "static/js/main.509d80f0.js"
+  ]
+}
