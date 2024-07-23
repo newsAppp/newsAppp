@@ -45,7 +45,7 @@ export default function Search() {
         <div className="flex flex-col items-center">
           <img
             src="/google-logo.png" // Replace with your own logo or image
-            alt="Google Logo"
+            alt="News App"
             className="mb-8"
             width={200} // Adjust width as needed
           />
