@@ -45,5 +45,6 @@
   "devDependencies": {
     "tailwindcss": "^3.4.6"
   },
-  "homepage": "https://newsappp.github.io"
+  "homepage": "https://newsappp.github.io",
+  "proxy": "https://server2.opencoursehub.online"
 }
