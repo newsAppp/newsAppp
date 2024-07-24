@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 const fetchNewsData = async (query, skip, limit) => {
     try {
         const response = await fetch(
-            '/news?query='+query+'&skip=0&limit=10',
+            'https://server2.opencoursehub.online/news?query='+query+'&skip=0&limit=10',
             {
                 method: 'GET',
                 headers: {
