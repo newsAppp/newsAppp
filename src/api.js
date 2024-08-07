@@ -1,7 +1,7 @@
 // src/api.js
 import axios from 'axios';
 
-const API_URL = '/summaries';
+const API_URL = 'https://server2.opencoursehub.online/summaries';
 
 export const fetchNews = async (category) => {
   try {
