@@ -1,12 +1,12 @@
 // src/api.js
 import axios from 'axios';
 
-const API_URL = 'https://server2.opencoursehub.online/summaries';
+const API_URL = 'https://server2.opencoursehub.online/top';
 
-export const fetchNews = async (category) => {
+export const fetchNews = async (category, page = 1, perPage = 5) => {
   try {
-    const response = await axios.get(`${API_URL}/last-2-days`, {
-      params: { category }
+    const response = await axios.get(`${API_URL}`, {
+      params: { category, page, per_page: perPage }
     });
     return response.data;
   } catch (error) {
