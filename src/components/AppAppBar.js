@@ -7,7 +7,6 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -20,7 +19,7 @@ const logoStyle = {
   cursor: 'pointer',
 };
 
-function AppAppBar({ mode, toggleColorMode }) {
+function AppAppBar({ mode, toggleColorMode, handleCategoryChange }) {
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
@@ -38,6 +37,7 @@ function AppAppBar({ mode, toggleColorMode }) {
   };
 
   const scrollToSection = (sectionId) => {
+    handleCategoryChange(sectionId);
     const sectionElement = document.getElementById(sectionId);
     const offset = 128;
     if (sectionElement) {
@@ -52,7 +52,7 @@ function AppAppBar({ mode, toggleColorMode }) {
   };
 
   const menuItems = [
-    { label: 'News', section: 'news' },
+    { label: 'Top News', section: 'top-news' },
     { label: 'National', section: 'national' },
     { label: 'International', section: 'international' },
     { label: 'Sci-Tech', section: 'sci-tech' },

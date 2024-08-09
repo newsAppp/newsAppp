@@ -1,29 +1,26 @@
-// src/components/NewsList.js
 import React, { useState, useEffect } from 'react';
-import { Container, Grid, Pagination, CircularProgress, Skeleton } from '@mui/material';
+import { Container, Grid, Pagination, Skeleton } from '@mui/material';
 import NewsCard from './NewsCard';
-import CategorySelector from './CategorySelector';
 import { fetchNews } from '../api';
 
-const NewsList = () => {
+const NewsList = ({ selectedCategory }) => {
   const [newsList, setNewsList] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('All');
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [perPage, setPerPage] = useState(5); // Set the number of items per page
-  const [isLoading, setIsLoading] = useState(false); // State for loader
+  const [perPage, setPerPage] = useState(6);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const loadNews = async () => {
-      setIsLoading(true); // Show loader on API call
+      setIsLoading(true);
       try {
         const data = await fetchNews(selectedCategory, currentPage, perPage);
         setNewsList(data);
-        setTotalPages(10); // Update total pages from API response
+        setTotalPages(10);
       } catch (error) {
         console.error('Error loading news:', error);
       } finally {
-        setIsLoading(false); // Hide loader after API call (success or error)
+        setIsLoading(false);
       }
     };
 
@@ -31,15 +28,12 @@ const NewsList = () => {
   }, [selectedCategory, currentPage, perPage]);
 
   const handlePageChange = (event, newPage) => {
+    window.scrollTo(0, 0);
     setCurrentPage(newPage);
   };
 
   return (
     <Container>
-      {/* <CategorySelector
-        selectedCategory={selectedCategory}
-        onCategoryChange={setSelectedCategory}
-      /> */}
       {isLoading && (
         <Grid container spacing={2}>
           {Array(perPage).fill(null).map((_, index) => (

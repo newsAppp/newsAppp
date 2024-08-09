@@ -2,10 +2,12 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Grid, CircularProgress, Skeleton } from '@mui/material';
 import OGContentCard from './OGContentCard'; // Create this component
+import { Card, CardContent } from '@mui/material';
+
 
 const OGContentList = ({ urls }) => {
   const [ogContentList, setOGContentList] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchOGContent = async () => {
@@ -28,11 +30,14 @@ const OGContentList = ({ urls }) => {
     <Container>
       {isLoading && (
         <Grid container spacing={2}>
-          {Array(urls.length).fill(null).map((_, index) => (
-            <Grid item  key={index}>
-              <Skeleton variant="rectangular" width="100%" height={140} />
-              <Skeleton variant="text" width="100%" />
-              <Skeleton variant="text" width="100%" />
+          {Array(5).fill(null).map((_, index) => (
+            <Grid item key={index}>
+              <Card  >
+                <CardContent>
+                  <Skeleton variant="text" width="80%" height={20} />
+                  <Skeleton variant="text" width="60%" height={20} />
+                </CardContent>
+              </Card>
             </Grid>
           ))}
         </Grid>
@@ -40,7 +45,7 @@ const OGContentList = ({ urls }) => {
       {!isLoading && (
         <Grid container spacing={2}>
           {ogContentList.map((content) => (
-            <Grid item  key={content.loc}>
+            <Grid item key={content.loc}>
               <OGContentCard content={content} />
             </Grid>
           ))}
