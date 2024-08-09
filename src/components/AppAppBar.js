@@ -12,6 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
 import ToggleColorMode from './ToggleColorMode';
+import AppMenus from './AppMenus'; // Import the new component
 
 const logoStyle = {
   width: '140px',
@@ -21,6 +22,16 @@ const logoStyle = {
 
 function AppAppBar({ mode, toggleColorMode }) {
   const [open, setOpen] = React.useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const isMenuOpen = Boolean(anchorEl);
+
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
@@ -39,6 +50,29 @@ function AppAppBar({ mode, toggleColorMode }) {
       setOpen(false);
     }
   };
+
+  const menuItems = [
+    { label: 'News', section: 'news' },
+    { label: 'National', section: 'national' },
+    { label: 'International', section: 'international' },
+    { label: 'Sci-Tech', section: 'sci-tech' },
+    { label: 'Technology', section: 'technology' },
+    { label: 'Entertainment', section: 'entertainment' },
+    { label: 'Movies', section: 'movies' },
+    { label: 'Sport', section: 'sport' },
+    { label: 'Olympics', section: 'olympics' },
+    { label: 'Business', section: 'business' },
+    { label: 'Budget', section: 'budget' },
+    { label: 'Health', section: 'health' },
+    { label: 'Cricket', section: 'cricket' },
+    { label: 'Science', section: 'science' },
+    { label: 'Markets', section: 'markets' },
+    { label: 'Energy and Environment', section: 'energy-and-environment' },
+    { label: 'Industry', section: 'industry' },
+    { label: 'Sport Races', section: 'sport-races' },
+    { label: 'Economy', section: 'economy' },
+    { label: 'Music', section: 'music' },
+  ];
 
   return (
     <div>
@@ -90,48 +124,14 @@ function AppAppBar({ mode, toggleColorMode }) {
                 style={logoStyle}
                 alt="logo of sitemark"
               />
-              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                <MenuItem
-                  onClick={() => scrollToSection('features')}
-                  sx={{ py: '6px', px: '12px' }}
-                >
-                  <Typography variant="body2" color="text.primary">
-                    Features
-                  </Typography>
-                </MenuItem>
-                <MenuItem
-                  onClick={() => scrollToSection('testimonials')}
-                  sx={{ py: '6px', px: '12px' }}
-                >
-                  <Typography variant="body2" color="text.primary">
-                    Testimonials
-                  </Typography>
-                </MenuItem>
-                <MenuItem
-                  onClick={() => scrollToSection('highlights')}
-                  sx={{ py: '6px', px: '12px' }}
-                >
-                  <Typography variant="body2" color="text.primary">
-                    Highlights
-                  </Typography>
-                </MenuItem>
-                <MenuItem
-                  onClick={() => scrollToSection('pricing')}
-                  sx={{ py: '6px', px: '12px' }}
-                >
-                  <Typography variant="body2" color="text.primary">
-                    Pricing
-                  </Typography>
-                </MenuItem>
-                <MenuItem
-                  onClick={() => scrollToSection('faq')}
-                  sx={{ py: '6px', px: '12px' }}
-                >
-                  <Typography variant="body2" color="text.primary">
-                    FAQ
-                  </Typography>
-                </MenuItem>
-              </Box>
+              <AppMenus
+                menuItems={menuItems}
+                scrollToSection={scrollToSection}
+                handleMenuOpen={handleMenuOpen}
+                handleMenuClose={handleMenuClose}
+                anchorEl={anchorEl}
+                isMenuOpen={isMenuOpen}
+              />
             </Box>
             <Box
               sx={{
@@ -191,19 +191,11 @@ function AppAppBar({ mode, toggleColorMode }) {
                   >
                     <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
                   </Box>
-                  <MenuItem onClick={() => scrollToSection('features')}>
-                    Features
-                  </MenuItem>
-                  <MenuItem onClick={() => scrollToSection('testimonials')}>
-                    Testimonials
-                  </MenuItem>
-                  <MenuItem onClick={() => scrollToSection('highlights')}>
-                    Highlights
-                  </MenuItem>
-                  <MenuItem onClick={() => scrollToSection('pricing')}>
-                    Pricing
-                  </MenuItem>
-                  <MenuItem onClick={() => scrollToSection('faq')}>FAQ</MenuItem>
+                  {menuItems.map((item) => (
+                    <MenuItem key={item.section} onClick={() => scrollToSection(item.section)}>
+                      {item.label}
+                    </MenuItem>
+                  ))}
                   <Divider />
                   <MenuItem>
                     <Button
