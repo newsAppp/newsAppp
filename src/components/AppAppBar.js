@@ -139,7 +139,7 @@ function AppAppBar({ mode, toggleColorMode, handleCategoryChange }) {
               }}
             >
               <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
-              <Button
+              {/* <Button
                 color="primary"
                 variant="text"
                 size="small"
@@ -158,7 +158,7 @@ function AppAppBar({ mode, toggleColorMode, handleCategoryChange }) {
                 target="_blank"
               >
                 Sign up
-              </Button>
+              </Button> */}
             </Box>
             <Box sx={{ display: { sm: '', md: 'none' } }}>
               <Button
@@ -194,7 +194,7 @@ function AppAppBar({ mode, toggleColorMode, handleCategoryChange }) {
                       {item.label}
                     </MenuItem>
                   ))}
-                  <Divider />
+                  {/* <Divider />
                   <MenuItem>
                     <Button
                       color="primary"
@@ -218,7 +218,7 @@ function AppAppBar({ mode, toggleColorMode, handleCategoryChange }) {
                     >
                       Sign in
                     </Button>
-                  </MenuItem>
+                  </MenuItem> */}
                 </Box>
               </Drawer>
             </Box>
