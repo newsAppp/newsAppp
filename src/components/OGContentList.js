@@ -1,4 +1,3 @@
-// src/components/OGContentList.js
 import React, { useState, useEffect } from 'react';
 import { Container, Grid, CircularProgress, Skeleton } from '@mui/material';
 import OGContentCard from './OGContentCard'; // Create this component
