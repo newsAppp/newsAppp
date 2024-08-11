@@ -6,12 +6,12 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
-import Divider from '@mui/material/Divider';
 import MenuItem from '@mui/material/MenuItem';
 import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
 import ToggleColorMode from './ToggleColorMode';
 import AppMenus from './AppMenus'; // Import the new component
+import { Divider } from '@mui/material';
 
 const logoStyle = {
   width: '140px',
@@ -19,7 +19,7 @@ const logoStyle = {
   cursor: 'pointer',
 };
 
-function AppAppBar({ mode, toggleColorMode, handleCategoryChange }) {
+function AppAppBar({ mode, toggleColorMode, handleCategoryChange, isHindi, setIsHindi }) {
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
@@ -52,27 +52,28 @@ function AppAppBar({ mode, toggleColorMode, handleCategoryChange }) {
   };
 
   const menuItems = [
-    { label: 'Top News', section: 'top-news' },
-    { label: 'National', section: 'national' },
-    { label: 'International', section: 'international' },
-    { label: 'Sci-Tech', section: 'sci-tech' },
-    { label: 'Technology', section: 'technology' },
-    { label: 'Entertainment', section: 'entertainment' },
-    { label: 'Movies', section: 'movies' },
-    { label: 'Sport', section: 'sport' },
-    { label: 'Olympics', section: 'olympics' },
-    { label: 'Business', section: 'business' },
-    { label: 'Budget', section: 'budget' },
-    { label: 'Health', section: 'health' },
-    { label: 'Cricket', section: 'cricket' },
-    { label: 'Science', section: 'science' },
-    { label: 'Markets', section: 'markets' },
-    { label: 'Energy and Environment', section: 'energy-and-environment' },
-    { label: 'Industry', section: 'industry' },
-    { label: 'Sport Races', section: 'sport-races' },
-    { label: 'Economy', section: 'economy' },
-    { label: 'Music', section: 'music' },
+    { label: 'Top News', labelHindi: 'मुख्य समाचार', section: 'top-news' },
+    { label: 'National', labelHindi: 'राष्ट्रीय', section: 'national' },
+    { label: 'International', labelHindi: 'अंतरराष्ट्रीय', section: 'international' },
+    { label: 'Sci-Tech', labelHindi: 'विज्ञान-तकनीक', section: 'sci-tech' },
+    { label: 'Technology', labelHindi: 'प्रौद्योगिकी', section: 'technology' },
+    { label: 'Entertainment', labelHindi: 'मनोरंजन', section: 'entertainment' },
+    { label: 'Movies', labelHindi: 'फिल्में', section: 'movies' },
+    { label: 'Sport', labelHindi: 'खेल', section: 'sport' },
+    { label: 'Olympics', labelHindi: 'ओलंपिक', section: 'olympics' },
+    { label: 'Business', labelHindi: 'व्यापार', section: 'business' },
+    { label: 'Budget', labelHindi: 'बजट', section: 'budget' },
+    { label: 'Health', labelHindi: 'स्वास्थ्य', section: 'health' },
+    { label: 'Cricket', labelHindi: 'क्रिकेट', section: 'cricket' },
+    { label: 'Science', labelHindi: 'विज्ञान', section: 'science' },
+    { label: 'Markets', labelHindi: 'बाजार', section: 'markets' },
+    { label: 'Energy and Environment', labelHindi: 'ऊर्जा और पर्यावरण', section: 'energy-and-environment' },
+    { label: 'Industry', labelHindi: 'उद्योग', section: 'industry' },
+    { label: 'Sport Races', labelHindi: 'खेल दौड़', section: 'sport-races' },
+    { label: 'Economy', labelHindi: 'अर्थव्यवस्था', section: 'economy' },
+    { label: 'Music', labelHindi: 'संगीत', section: 'music' },
   ];
+
 
   return (
     <div>
@@ -118,7 +119,7 @@ function AppAppBar({ mode, toggleColorMode, handleCategoryChange }) {
               }}
             >
               <img
-                src={'/logo/vector/default.svg' }
+                src={'/logo/vector/default.svg'}
                 style={logoStyle}
                 alt="logo of sitemark"
               />
@@ -129,6 +130,7 @@ function AppAppBar({ mode, toggleColorMode, handleCategoryChange }) {
                 handleMenuClose={handleMenuClose}
                 anchorEl={anchorEl}
                 isMenuOpen={isMenuOpen}
+                isHindi={isHindi}
               />
             </Box>
             <Box
@@ -139,6 +141,24 @@ function AppAppBar({ mode, toggleColorMode, handleCategoryChange }) {
               }}
             >
               <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
+              <Button
+                variant="text"
+                color="primary"
+                size="small"
+                onClick={() => setIsHindi(true)}
+                sx={{ minWidth: '30px', p: '4px' }}
+              >
+                हिंदी
+              </Button>
+              <Button
+                variant="text"
+                color="primary"
+                size="small"
+                onClick={() => setIsHindi(false)}
+                sx={{ minWidth: '30px', p: '4px' }}
+              >
+                English
+              </Button>
               {/* <Button
                 color="primary"
                 variant="text"
@@ -189,9 +209,30 @@ function AppAppBar({ mode, toggleColorMode, handleCategoryChange }) {
                   >
                     <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
                   </Box>
+                  <Box marginY={1}>
+                    <Button
+                      variant="text"
+                      color="primary"
+                      size="small"
+                      onClick={() => setIsHindi(true)}
+                      sx={{ minWidth: '30px', p: '4px' }}
+                    >
+                      हिंदी
+                    </Button>
+                    <Button
+                      variant="text"
+                      color="primary"
+                      size="small"
+                      onClick={() => setIsHindi(false)}
+                      sx={{ minWidth: '30px', p: '4px' }}
+                    >
+                      English
+                    </Button>
+                  </Box>
+                  <Divider />
                   {menuItems.map((item) => (
                     <MenuItem key={item.section} onClick={() => scrollToSection(item.section)}>
-                      {item.label}
+                      {isHindi ? item.labelHindi : item.label}
                     </MenuItem>
                   ))}
                   {/* <Divider />

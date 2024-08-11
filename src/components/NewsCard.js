@@ -3,7 +3,7 @@ import { Card, CardContent, Typography, CardMedia, Button, Dialog, DialogTitle, 
 import OGContentList from './OGContentList'; 
 import { getSimilar } from '../api';
 
-const NewsCard = ({ news }) => {
+const NewsCard = ({ news, isHindi }) => {
   const [open, setOpen] = useState(false);
   const [similarUrls, setSimilarUrls] = useState([]); 
 
@@ -43,10 +43,10 @@ const NewsCard = ({ news }) => {
         )}
         <CardContent>
           <Typography variant="h5" component="div">
-            {news.title}
+            {isHindi ? news.titlehindi : news.title}
           </Typography>
           <Typography variant="body2" marginTop={2} color="text.secondary">
-            {news.summary}
+            {isHindi ? news.summaryhindi : news.summary}
           </Typography>
         </CardContent>
       </Card>

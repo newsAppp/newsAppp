@@ -3,7 +3,7 @@ import { Container, Grid, Pagination, Skeleton } from '@mui/material';
 import NewsCard from './NewsCard';
 import { fetchNews } from '../api';
 
-const NewsList = ({ selectedCategory }) => {
+const NewsList = ({ selectedCategory, isHindi }) => {
   const [newsList, setNewsList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -49,7 +49,7 @@ const NewsList = ({ selectedCategory }) => {
         <Grid container spacing={2}>
           {newsList.map((news) => (
             <Grid item xs={12} sm={6} md={4} key={news.article_id}>
-              <NewsCard news={news} />
+              <NewsCard news={news} isHindi={isHindi} />
             </Grid>
           ))}
         </Grid>

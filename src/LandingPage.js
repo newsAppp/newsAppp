@@ -60,6 +60,7 @@ export default function LandingPage() {
   const LPtheme = createTheme(getLPTheme(mode));
   const defaultTheme = createTheme({ palette: { mode } });
   const [selectedCategory, setSelectedCategory] = React.useState('top-news'); 
+  const [isHindi, setIsHindi] = React.useState(false);
 
   const toggleColorMode = () => {
     setMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
@@ -73,8 +74,8 @@ export default function LandingPage() {
   return (
     <ThemeProvider theme={showCustomTheme ? LPtheme : defaultTheme}>
       <CssBaseline />
-      <AppAppBar mode={mode} toggleColorMode={toggleColorMode} handleCategoryChange={handleCategoryChange} />
-      <Hero selectedCategory={selectedCategory} />
+      <AppAppBar mode={mode} toggleColorMode={toggleColorMode} handleCategoryChange={handleCategoryChange} isHindi={isHindi} setIsHindi={setIsHindi} />
+      <Hero selectedCategory={selectedCategory} isHindi={isHindi} />
       <Box sx={{ bgcolor: 'background.default' }}>
         <Footer />
       </Box>

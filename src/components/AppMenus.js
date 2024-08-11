@@ -1,17 +1,17 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-
 import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-function AppMenus({ menuItems, scrollToSection, handleMenuOpen, handleMenuClose, anchorEl, isMenuOpen }) {
+function AppMenus({ menuItems, scrollToSection, handleMenuOpen, handleMenuClose, anchorEl, isMenuOpen, isHindi }) {
   const MAX_ITEMS = 3;
 
   const mainItems = menuItems.slice(0, MAX_ITEMS);
   const moreItems = menuItems.slice(MAX_ITEMS);
+  console.log(isHindi)
 
   return (
     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
@@ -22,14 +22,14 @@ function AppMenus({ menuItems, scrollToSection, handleMenuOpen, handleMenuClose,
           sx={{ py: '6px', px: '12px' }}
         >
           <Typography variant="body2" color="text.primary">
-            {item.label}
+            {isHindi ? item.labelHindi : item.label}
           </Typography>
         </MenuItem>
       ))}
       {moreItems.length > 0 && (
         <MenuItem onClick={handleMenuOpen} sx={{ py: '6px', px: '12px' }}>
           <Typography variant="body2" color="text.primary">
-            More
+            { isHindi ? 'अन्य' : 'More' }
           </Typography>
           <ExpandMoreIcon />
         </MenuItem>
@@ -61,7 +61,7 @@ function AppMenus({ menuItems, scrollToSection, handleMenuOpen, handleMenuClose,
             }}
             sx={{ py: '6px', px: '12px' }}
           >
-            <Typography variant="body2" color="text.primary">{item.label}</Typography>
+            <Typography variant="body2" color="text.primary">{isHindi ? item.labelHindi : item.label}</Typography>
           </MenuItem>
         ))}
       </Menu>
@@ -76,6 +76,7 @@ AppMenus.propTypes = {
   handleMenuClose: PropTypes.func.isRequired,
   anchorEl: PropTypes.object,
   isMenuOpen: PropTypes.bool.isRequired,
+  isHindi: PropTypes.bool,
 };
 
 export default AppMenus;
