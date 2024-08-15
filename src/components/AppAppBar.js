@@ -52,6 +52,7 @@ function AppAppBar({ mode, toggleColorMode, handleCategoryChange, isHindi, setIs
   };
 
   const menuItems = [
+    { label: 'Top 30', labelHindi: 'मुख्य 30', section: 'top30' },
     { label: 'Top News', labelHindi: 'मुख्य समाचार', section: 'top-news' },
     { label: 'National', labelHindi: 'राष्ट्रीय', section: 'national' },
     { label: 'International', labelHindi: 'अंतरराष्ट्रीय', section: 'international' },
