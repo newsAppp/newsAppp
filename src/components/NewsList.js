@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Container, Grid, CircularProgress, Box, Skeleton } from '@mui/material';
+import { Container, Grid, CircularProgress, Box } from '@mui/material';
 import NewsCard from './NewsCard';
 import { fetchNews } from '../api';
 
@@ -11,19 +11,25 @@ const NewsList = ({ selectedCategory, isHindi }) => {
   const [hasMore, setHasMore] = useState(true);
 
   const observer = useRef();
-
   const lastNewsElementRef = useRef(null);
 
-  const loadNews = async () => {
-    if (isLoading || !hasMore) return;
+  const loadNews = async (page, isInitialLoad = false) => {
+    if (isLoading || (!hasMore && !isInitialLoad)) return;
 
     setIsLoading(true);
     try {
-      const data = await fetchNews(selectedCategory, currentPage, perPage);
-      if (data.length < perPage) {
+      const data = await fetchNews(selectedCategory, page, perPage);
+
+      // Filter out duplicates based on article_id
+      const newNews = data.filter(
+        (newsItem) => !newsList.some((existingItem) => existingItem.article_id === newsItem.article_id)
+      );
+
+      if (newNews.length < perPage) {
         setHasMore(false); // No more pages to load
       }
-      setNewsList((prevNews) => [...prevNews, ...data]);
+
+      setNewsList((prevNews) => isInitialLoad ? [...newNews] : [...prevNews, ...newNews]);
     } catch (error) {
       console.error('Error loading news:', error);
     } finally {
@@ -32,14 +38,18 @@ const NewsList = ({ selectedCategory, isHindi }) => {
   };
 
   useEffect(() => {
-    loadNews();
-  }, [currentPage]);
-
-  useEffect(() => {
+    // Reset state and load the first page when category changes
     setNewsList([]);
     setCurrentPage(1);
     setHasMore(true);
+    loadNews(1, true);  // Initial load for new category
   }, [selectedCategory]);
+
+  useEffect(() => {
+    if (currentPage > 1) {
+      loadNews(currentPage);
+    }
+  }, [currentPage]);
 
   useEffect(() => {
     if (isLoading) return;
