@@ -59,7 +59,7 @@ export default function LandingPage() {
   const [showCustomTheme, setShowCustomTheme] = React.useState(true);
   const LPtheme = createTheme(getLPTheme(mode));
   const defaultTheme = createTheme({ palette: { mode } });
-  const [selectedCategory, setSelectedCategory] = React.useState('top-news'); 
+  const [selectedCategory, setSelectedCategory] = React.useState('top30'); 
   const [isHindi, setIsHindi] = React.useState(false);
 
   const toggleColorMode = () => {
