@@ -12,6 +12,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ToggleColorMode from './ToggleColorMode';
 import AppMenus from './AppMenus'; // Import the new component
 import { Divider } from '@mui/material';
+import { getCategoriesV2 } from '../api';
 
 const logoStyle = {
   width: '140px',
@@ -23,6 +24,18 @@ function AppAppBar({ mode, toggleColorMode, handleCategoryChange, isHindi, setIs
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
+  const [categories, setCategories] = React.useState([]);
+
+  React.useEffect(() => {
+    getCategoriesV2().then(d => setCategories(d))
+    // setCategories(cat)
+    // fetch("https://server2.opencoursehub.online/v1.1/categories")
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     setCategories(data);
+    //   })
+    //   .catch(error => console.error('Error fetching categories:', error));
+  }, []);
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -51,29 +64,11 @@ function AppAppBar({ mode, toggleColorMode, handleCategoryChange, isHindi, setIs
     }
   };
 
-  const menuItems = [
-    { label: 'Top 30', labelHindi: 'मुख्य 30', section: 'top30' },
-    // { label: 'Top News', labelHindi: 'मुख्य समाचार', section: 'top-news' },
-    { label: 'National', labelHindi: 'राष्ट्रीय', section: 'national' },
-    { label: 'International', labelHindi: 'अंतरराष्ट्रीय', section: 'international' },
-    { label: 'Sci-Tech', labelHindi: 'विज्ञान-तकनीक', section: 'sci-tech' },
-    { label: 'Technology', labelHindi: 'प्रौद्योगिकी', section: 'technology' },
-    { label: 'Entertainment', labelHindi: 'मनोरंजन', section: 'entertainment' },
-    { label: 'Movies', labelHindi: 'फिल्में', section: 'movies' },
-    { label: 'Sport', labelHindi: 'खेल', section: 'sport' },
-    { label: 'Olympics', labelHindi: 'ओलंपिक', section: 'olympics' },
-    { label: 'Business', labelHindi: 'व्यापार', section: 'business' },
-    { label: 'Budget', labelHindi: 'बजट', section: 'budget' },
-    { label: 'Health', labelHindi: 'स्वास्थ्य', section: 'health' },
-    { label: 'Cricket', labelHindi: 'क्रिकेट', section: 'cricket' },
-    { label: 'Science', labelHindi: 'विज्ञान', section: 'science' },
-    { label: 'Markets', labelHindi: 'बाजार', section: 'markets' },
-    { label: 'Energy and Environment', labelHindi: 'ऊर्जा और पर्यावरण', section: 'energy-and-environment' },
-    { label: 'Industry', labelHindi: 'उद्योग', section: 'industry' },
-    { label: 'Sport Races', labelHindi: 'खेल दौड़', section: 'sport-races' },
-    { label: 'Economy', labelHindi: 'अर्थव्यवस्था', section: 'economy' },
-    { label: 'Music', labelHindi: 'संगीत', section: 'music' },
-  ];
+  // const menuItems = categories.map(category => ({
+  //   label: category.charAt(0).toUpperCase() + category.slice(1),
+  //   labelHindi: category, // You might want to provide Hindi translations
+  //   section: category
+  // }));
 
 
   return (
@@ -125,7 +120,7 @@ function AppAppBar({ mode, toggleColorMode, handleCategoryChange, isHindi, setIs
                 alt="logo of sitemark"
               />
               <AppMenus
-                menuItems={menuItems}
+                menuItems={categories}
                 scrollToSection={scrollToSection}
                 handleMenuOpen={handleMenuOpen}
                 handleMenuClose={handleMenuClose}
@@ -231,9 +226,9 @@ function AppAppBar({ mode, toggleColorMode, handleCategoryChange, isHindi, setIs
                     </Button>
                   </Box>
                   <Divider />
-                  {menuItems.map((item) => (
+                  {categories.map((item) => (
                     <MenuItem key={item.section} onClick={() => scrollToSection(item.section)}>
-                      {isHindi ? item.labelHindi : item.label}
+                      {isHindi ? item.labelhindi : item.label}
                     </MenuItem>
                   ))}
                   {/* <Divider />

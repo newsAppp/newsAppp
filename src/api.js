@@ -73,3 +73,12 @@ export const fetchTop30 = async (day, page = 1, perPage = 6) => {
 };
 
 
+export const getCategoriesV2 = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/v1.1/categories`, {});
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching news:', error);
+    throw error;
+  }
+};
