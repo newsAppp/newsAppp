@@ -1,0 +1,9 @@
+npx cap init
+npx cap add android
+npm run build
+npx cap copy
+npx cap run android
+
+export CAPACITOR_ANDROID_STUDIO_PATH=/home/lucky/Downloads/android-studio/
+
+rm -rf android/

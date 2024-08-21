@@ -4,6 +4,9 @@
   "proxy": "http://server2.opencoursehub.online",
   "private": true,
   "dependencies": {
+    "@capacitor/android": "^6.1.2",
+    "@capacitor/cli": "^6.1.2",
+    "@capacitor/core": "^6.1.2",
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^5.16.6",
@@ -50,6 +53,5 @@
   "devDependencies": {
     "gh-pages": "^6.1.1"
   },
-  "homepage": "https://newsappp.github.io",
-  "proxy": "https://server2.opencoursehub.online"
+  "homepage": "https://newsappp.github.io"
 }
