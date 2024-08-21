@@ -22,7 +22,7 @@ function AppMenus({ menuItems, scrollToSection, handleMenuOpen, handleMenuClose,
           sx={{ py: '6px', px: '12px' }}
         >
           <Typography variant="body2" color="text.primary">
-            {isHindi ? item.labelHindi : item.label}
+            {isHindi ? item.labelhindi : item.label}
           </Typography>
         </MenuItem>
       ))}

@@ -6,7 +6,7 @@ const API_URL = 'https://server2.opencoursehub.online';
 export const fetchNews = async (category, page = 1, perPage = 5) => {
   try {
     if (category === 'top30') {
-      return await fetchTop30(page, perPage)
+      return await fetchTop30(1, page, perPage)
     }
     if (category !== 'top-news') {
       return await fetchSummary(2, page, perPage, [category])
@@ -61,7 +61,7 @@ export const fetchTop30 = async (day, page = 1, perPage = 6) => {
   try {
     const response = await axios.get(`${API_URL}/top30`, {
       params: {
-        day, page,
+        page: page,
         per_page: perPage
       }
     });

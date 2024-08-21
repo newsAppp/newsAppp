@@ -27,14 +27,7 @@ function AppAppBar({ mode, toggleColorMode, handleCategoryChange, isHindi, setIs
   const [categories, setCategories] = React.useState([]);
 
   React.useEffect(() => {
-    getCategoriesV2().then(d => setCategories(d))
-    // setCategories(cat)
-    // fetch("https://server2.opencoursehub.online/v1.1/categories")
-    //   .then(response => response.json())
-    //   .then(data => {
-    //     setCategories(data);
-    //   })
-    //   .catch(error => console.error('Error fetching categories:', error));
+    getCategoriesV2().then(d => setCategories(d))    
   }, []);
 
   const handleMenuOpen = (event) => {
@@ -63,14 +56,7 @@ function AppAppBar({ mode, toggleColorMode, handleCategoryChange, isHindi, setIs
       setOpen(false);
     }
   };
-
-  // const menuItems = categories.map(category => ({
-  //   label: category.charAt(0).toUpperCase() + category.slice(1),
-  //   labelHindi: category, // You might want to provide Hindi translations
-  //   section: category
-  // }));
-
-
+  
   return (
     <div>
       <AppBar
