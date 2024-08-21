@@ -1,65 +1,100 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Grid, Pagination, Skeleton } from '@mui/material';
+import React, { useState, useEffect, useRef } from 'react';
+import { Container, Grid, CircularProgress, Box } from '@mui/material';
 import NewsCard from './NewsCard';
 import { fetchNews } from '../api';
 
 const NewsList = ({ selectedCategory, isHindi }) => {
   const [newsList, setNewsList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [perPage, setPerPage] = useState(6);
+  const [perPage] = useState(6);
   const [isLoading, setIsLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+
+  const observer = useRef();
+  const lastNewsElementRef = useRef(null);
+
+  const loadNews = async (page, isInitialLoad = false) => {
+    if (isLoading || (!hasMore && !isInitialLoad)) return;
+
+    setIsLoading(true);
+    try {
+      const data = await fetchNews(selectedCategory, page, perPage);
+
+      // Filter out duplicates based on article_id
+      const newNews = data.filter(
+        (newsItem) => !newsList.some((existingItem) => existingItem.article_id === newsItem.article_id)
+      );
+
+      if (newNews.length < perPage) {
+        setHasMore(false); // No more pages to load
+      }
+
+      setNewsList((prevNews) => isInitialLoad ? [...newNews] : [...prevNews, ...newNews]);
+    } catch (error) {
+      console.error('Error loading news:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const loadNews = async () => {
-      setIsLoading(true);
-      try {
-        const data = await fetchNews(selectedCategory, currentPage, perPage);
-        setNewsList(data);
-        setTotalPages(10);
-      } catch (error) {
-        console.error('Error loading news:', error);
-      } finally {
-        setIsLoading(false);
+    // Reset state and load the first page when category changes
+    setNewsList([]);
+    setCurrentPage(1);
+    setHasMore(true);
+    loadNews(1, true);  // Initial load for new category
+  }, [selectedCategory]);
+
+  useEffect(() => {
+    if (currentPage > 1) {
+      loadNews(currentPage);
+    }
+  }, [currentPage]);
+
+  useEffect(() => {
+    if (isLoading) return;
+
+    observer.current = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          setCurrentPage((prevPage) => prevPage + 1);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (lastNewsElementRef.current) {
+      observer.current.observe(lastNewsElementRef.current);
+    }
+
+    return () => {
+      if (observer.current && lastNewsElementRef.current) {
+        observer.current.unobserve(lastNewsElementRef.current);
       }
     };
-
-    loadNews();
-  }, [selectedCategory, currentPage, perPage]);
-
-  const handlePageChange = (event, newPage) => {
-    window.scrollTo(0, 0);
-    setCurrentPage(newPage);
-  };
+  }, [isLoading, hasMore]);
 
   return (
     <Container>
+      <Grid container spacing={2}>
+        {newsList.map((news, index) => (
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            md={4}
+            key={news.article_id}
+            ref={index === newsList.length - 1 ? lastNewsElementRef : null}
+          >
+            <NewsCard news={news} isHindi={isHindi} />
+          </Grid>
+        ))}
+      </Grid>
       {isLoading && (
-        <Grid container spacing={2}>
-          {Array(perPage).fill(null).map((_, index) => (
-            <Grid item xs={12} sm={6} md={4} key={index}>
-              <Skeleton variant="rectangular" width="100%" height={140} />
-              <Skeleton variant="text" width="100%" />
-              <Skeleton variant="text" width="100%" />
-            </Grid>
-          ))}
-        </Grid>
+        <Box display="flex" justifyContent="center" alignItems="center" sx={{ mt: 2 }}>
+          <CircularProgress />
+        </Box>
       )}
-      {!isLoading && (
-        <Grid container spacing={2}>
-          {newsList.map((news) => (
-            <Grid item xs={12} sm={6} md={4} key={news.article_id}>
-              <NewsCard news={news} isHindi={isHindi} />
-            </Grid>
-          ))}
-        </Grid>
-      )}
-      <Pagination
-        count={totalPages}
-        page={currentPage}
-        onChange={handlePageChange}
-        sx={{ mt: 2 }}
-      />
     </Container>
   );
 };
