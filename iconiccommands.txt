@@ -1,0 +1,14 @@
+npx cap init
+npx cap add android
+npm run build
+npx cap copy
+npx cap run android
+
+export CAPACITOR_ANDROID_STUDIO_PATH=/home/lucky/Downloads/android-studio/
+
+rm -rf android/
+
+cd ~/Downloads/android-studio/jbr/bin
+keytool -genkey -v -keystore news-flash-key.keystore -keyalg RSA -keysize 2048 -validity 10000 -alias news-flash-alias
+
+4Mk8.^A1\a&}
