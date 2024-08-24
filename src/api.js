@@ -43,7 +43,7 @@ export const getSimilar = async (id) => {
 
 export const fetchSummary = async (day, page = 1, perPage = 6, categories = ["cities"]) => {
   try {
-    const response = await axios.get(`${API_URL}/summary`, {
+    const response = await axios.get(`${API_URL}/v1.1/summary`, {
       params: {
         day, page,
         per_page: perPage,

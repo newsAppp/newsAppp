@@ -1,7 +1,6 @@
 {
   "name": "news-app",
   "version": "0.1.0",
-  "proxy": "http://server2.opencoursehub.online",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.13.0",
@@ -50,6 +49,5 @@
   "devDependencies": {
     "gh-pages": "^6.1.1"
   },
-  "homepage": "https://newsappp.github.io",
-  "proxy": "https://server2.opencoursehub.online"
+  "homepage": "https://newsappp.github.io"
 }
