@@ -13,6 +13,7 @@ import ToggleColorMode from './ToggleColorMode';
 import AppMenus from './AppMenus'; // Import the new component
 import { Divider } from '@mui/material';
 import { getCategoriesV2 } from '../api';
+import { Link } from 'react-router-dom';
 
 const logoStyle = {
   width: '140px',
@@ -27,7 +28,7 @@ function AppAppBar({ mode, toggleColorMode, handleCategoryChange, isHindi, setIs
   const [categories, setCategories] = React.useState([]);
 
   React.useEffect(() => {
-    getCategoriesV2().then(d => setCategories(d))    
+    getCategoriesV2().then(d => setCategories(d))
   }, []);
 
   const handleMenuOpen = (event) => {
@@ -56,7 +57,7 @@ function AppAppBar({ mode, toggleColorMode, handleCategoryChange, isHindi, setIs
       setOpen(false);
     }
   };
-  
+
   return (
     <div>
       <AppBar
@@ -133,14 +134,22 @@ function AppAppBar({ mode, toggleColorMode, handleCategoryChange, isHindi, setIs
                 हिंदी
               </Button>
               <Button
-                variant="text"
-                color="primary"
-                size="small"
-                onClick={() => setIsHindi(false)}
-                sx={{ minWidth: '30px', p: '4px' }}
               >
                 English
               </Button>
+              <Link
+                to="/contact-us"
+                style={{ textDecoration: 'none' }}
+              >
+                <Button
+                  variant="text"
+                  color="primary"
+                  size="small"
+                  sx={{ minWidth: '30px', p: '4px' }}
+                >
+                  | Contact Us
+                </Button>
+              </Link>
               {/* <Button
                 color="primary"
                 variant="text"
@@ -210,6 +219,20 @@ function AppAppBar({ mode, toggleColorMode, handleCategoryChange, isHindi, setIs
                     >
                       English
                     </Button>
+
+                    <Link
+                      to="/contact-us"
+                      style={{ textDecoration: 'none' }}
+                    >
+                      <Button
+                        variant="text"
+                        color="primary"
+                        size="small"
+                        sx={{ minWidth: '30px', p: '4px' }}
+                      >
+                        | Contact Us
+                      </Button>
+                    </Link>
                   </Box>
                   <Divider />
                   {categories.map((item) => (
