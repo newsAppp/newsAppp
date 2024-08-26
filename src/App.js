@@ -1,30 +1,16 @@
-// src/App.js
 import React from 'react';
 import LandingPage from './LandingPage';
-import { createBrowserRouter, Link, RouterProvider } from 'react-router-dom';
+import { HashRouter, Route, Routes } from "react-router-dom";
 import ContactUs from './ContactUs';
-
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: (
-        <LandingPage></LandingPage>
-    ),
-  },
-  {
-    path: 'contact-us',
-    element: (
-        <ContactUs></ContactUs>
-    ),
-  },
-  
-]);
 
 const App = () => {
   return (
-    <div className="App">
-          <RouterProvider router={router} />
-    </div>
+    <HashRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/contact-us" element={<ContactUs />} />
+      </Routes>
+    </HashRouter>
   );
 };
 
