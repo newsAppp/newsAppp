@@ -24,7 +24,7 @@ const NewsCard = ({ news, isHindi }) => {
       console.log(url);
       return url;
     } catch (error) {
-      console.error('Error parsing image JSON:', error);
+      console.info('Error parsing image JSON:', error);
     }
     return imageJson;
   };

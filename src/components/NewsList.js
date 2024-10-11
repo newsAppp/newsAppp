@@ -29,7 +29,7 @@ const NewsList = ({ selectedCategory, isHindi }) => {
         setHasMore(false); // No more pages to load
       }
 
-      setNewsList((prevNews) => isInitialLoad ? [...newNews] : [...prevNews, ...newNews]);
+      setNewsList((prevNews) => isInitialLoad ? [...data] : [...prevNews, ...newNews]);
     } catch (error) {
       console.error('Error loading news:', error);
     } finally {
