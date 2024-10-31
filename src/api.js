@@ -41,6 +41,16 @@ export const getSimilar = async (id) => {
   }
 };
 
+export const getSimilarV2 = async (id) => {
+  try {
+    const response = await axios.get(`${API_URL}/v2/similar/${id}`, {});
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching news:', error);
+    throw error;
+  }
+};
+
 export const fetchSummary = async (day, page = 1, perPage = 6, categories = ["cities"]) => {
   try {
     const response = await axios.get(`${API_URL}/v1.1/summary`, {

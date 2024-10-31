@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, Typography, CardMedia, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import OGContentList from './OGContentList';
-import { getSimilar } from '../api';
+import { getSimilarV2 } from '../api';
 
 const NewsCard = ({ news, isHindi }) => { 
   
@@ -36,7 +36,7 @@ const NewsCard = ({ news, isHindi }) => {
   useEffect(() => {
     const fetchSimilarUrls = async () => {
       try {
-        const data = await getSimilar(news.article_id);
+        const data = await getSimilarV2(news.article_id);
         setSimilarUrls(data);
       } catch (error) {
         console.error('Error fetching similar URLs:', error);
