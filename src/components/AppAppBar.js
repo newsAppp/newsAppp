@@ -28,7 +28,13 @@ function AppAppBar({ mode, toggleColorMode, handleCategoryChange, isHindi, setIs
   const [categories, setCategories] = React.useState([]);
 
   React.useEffect(() => {
-    getCategoriesV2().then(d => setCategories(d))
+    getCategoriesV2().then(d => {
+      d= d.filter(a => a['label'] !== 'Top 30')
+      setCategories(
+      d
+      )
+      console.log(d);
+    })
   }, []);
 
   const handleMenuOpen = (event) => {
